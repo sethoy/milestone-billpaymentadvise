@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply for the Milestone Mastercard</title>
+<style>
+  :root{
+    --navy:#0b2540;
+    --navy-2:#123a63;
+    --teal:#0f8a8a;
+    --orange:#f5821f;
+    --green-check:#1a7a3c;
+    --border:#d9dee3;
+    --bg-field:#fafbfc;
+    --text:#1b2733;
+    --muted:#5b6b78;
+    --link:#0b6ab8;
+    --danger-bg:#f4f6f8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--text);
+    background:#fff;
+  }
+  header{
+    display:flex;
+    align-items:center;
+    padding:18px 32px;
+    border-bottom:3px solid var(--orange);
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .logo-mark{
+    width:26px;height:26px;
+    background:linear-gradient(135deg,var(--teal),var(--orange));
+    transform:rotate(45deg);
+    border-radius:4px;
+  }
+  .logo-text{
+    font-weight:800;
+    font-size:20px;
+    letter-spacing:1px;
+    color:var(--navy);
+  }
+  .logo-text sup{font-size:10px;}
+
+  main{
+    max-width:720px;
+    margin:0 auto;
+    padding:36px 24px 80px;
+  }
+  h1.hero{
+    text-align:center;
+    font-size:26px;
+    line-height:1.35;
+    color:var(--navy);
+    margin:0 0 28px;
+  }
+  .card-wrap{display:flex;justify-content:center;margin-bottom:24px;}
+  .card-mock{
+    width:280px;height:175px;
+    border-radius:14px;
+    background:linear-gradient(160deg,#0b2540 0%,#123a63 55%,#0f5f7a 100%);
+    position:relative;
+    box-shadow:0 12px 24px rgba(11,37,64,0.25);
+    color:#fff;
+    padding:18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .card-mock .brand{display:flex;align-items:center;gap:8px;font-weight:700;letter-spacing:1px;font-size:14px;}
+  .card-mock .brand .dot{width:14px;height:14px;background:#fff;transform:rotate(45deg);border-radius:3px;opacity:.9;}
+  .card-mock .chip-row{display:flex;align-items:center;gap:10px;}
+  .chip{width:36px;height:26px;border-radius:5px;background:linear-gradient(135deg,#c9a94a,#e8d18a);}
+  .wifi{font-size:18px;opacity:.9;}
+  .mc-logo{align-self:flex-end;display:flex;}
+  .mc-logo .c1{width:26px;height:26px;border-radius:50%;background:#eb001b;opacity:.9;}
+  .mc-logo .c2{width:26px;height:26px;border-radius:50%;background:#f79e1b;opacity:.9;margin-left:-10px;}
+
+  .checklist{margin:0 0 28px;padding:0;list-style:none;}
+  .checklist li{
+    display:flex;gap:10px;align-items:flex-start;
+    margin-bottom:8px;font-size:14.5px;color:var(--text);
+  }
+  .checklist li .check{color:var(--green-check);font-weight:700;}
+
+  .field{
+    width:100%;
+    padding:14px 16px;
+    border:1px solid var(--border);
+    border-radius:6px;
+    font-size:14.5px;
+    margin-bottom:14px;
+    background:var(--bg-field);
+    display:block;
+    color:var(--text);
+    outline:none;
+  }
+  .field:focus{border-color:var(--teal);background:#fff;}
+  .field.invalid{border-color:#d13a3a;}
+  .row2{display:flex;gap:16px;}
+  .row2 .field-wrap{flex:1;position:relative;}
+  .field-wrap{position:relative;}
+  .field-icon{
+    position:absolute;right:14px;top:14px;
+    font-size:14px;color:var(--muted);pointer-events:none;
+  }
+  .error-msg{
+    font-size:12px;color:#c92a2a;margin:-10px 0 12px;display:none;
+  }
+  .error-msg.show{display:block;}
+
+  .section-title{font-weight:700;font-size:16px;margin:36px 0 4px;color:var(--navy);}
+  .section-sub{font-weight:400;color:var(--muted);font-size:14px;}
+  .sub-heading{font-weight:700;font-size:15px;margin:18px 0 8px;}
+  .links-row{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:10px;}
+  .links-row a{color:var(--link);text-decoration:none;}
+  .links-row a:hover{text-decoration:underline;}
+
+  .doc-box{
+    max-height:220px;overflow-y:auto;
+    background:var(--danger-bg);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:16px;
+    font-size:13px;
+    color:var(--text);
+    line-height:1.55;
+    margin-bottom:16px;
+  }
+  .doc-box p{margin:0 0 12px;}
+  .doc-box ul{margin:0 0 12px;padding-left:18px;}
+  .doc-box strong{display:block;margin-bottom:6px;}
+
+  .confirm-text{font-size:14px;margin:14px 0 16px;line-height:1.5;}
+
+  .btn-row{display:flex;gap:14px;margin-bottom:12px;}
+  .toggle-btn{
+    flex:1;
+    padding:13px 0;
+    border-radius:6px;
+    border:1.5px solid var(--navy);
+    background:#fff;
+    color:var(--navy);
+    font-weight:600;
+    font-size:14.5px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .toggle-btn:hover{background:#f2f4f6;}
+  .toggle-btn.selected{
+    background:var(--navy);
+    color:#fff;
+  }
+  .toggle-btn.selected.decline{
+    background:#4a4f55;
+    border-color:#4a4f55;
+  }
+
+  .tc-table{
+    border:1px solid var(--border);
+    border-radius:6px;
+    overflow:hidden;
+    margin-bottom:16px;
+    font-size:13px;
+  }
+  .tc-title{background:#f2f4f6;font-weight:700;padding:10px 14px;border-bottom:1px solid var(--border);}
+  .tc-row{display:flex;border-bottom:1px solid var(--border);}
+  .tc-row:last-child{border-bottom:none;}
+  .tc-label{width:38%;padding:10px 14px;font-weight:700;background:#fafbfc;border-right:1px solid var(--border);}
+  .tc-value{width:62%;padding:10px 14px;}
+  .tc-apr{font-size:22px;font-weight:800;}
+  .tc-black{background:#1b2733;color:#fff;font-weight:700;padding:8px 14px;}
+
+  .submit-list{font-size:14px;line-height:1.6;padding-left:20px;margin:10px 0 18px;}
+  .submit-list li{margin-bottom:10px;}
+  .submit-note{font-size:14px;line-height:1.6;margin:16px 0;}
+  .submit-note a{color:var(--link);}
+
+  .submit-btn{
+    width:100%;
+    padding:16px 0;
+    border:none;
+    border-radius:6px;
+    background:#b9d3e8;
+    color:#fff;
+    font-weight:700;
+    font-size:16px;
+    cursor:not-allowed;
+    margin-top:8px;
+    transition:background .2s ease;
+  }
+  .submit-btn.enabled{
+    background:var(--teal);
+    cursor:pointer;
+  }
+  .submit-btn.enabled:hover{background:#0b7373;}
+
+  .divider{border:none;border-top:1px solid var(--border);margin:28px 0;}
+
+  footer{
+    background:#1b2733;
+    color:#c7cfd6;
+    padding:36px 32px;
+    font-size:12.5px;
+    line-height:1.7;
+  }
+  footer .foot-links{display:flex;gap:28px;margin-bottom:16px;flex-wrap:wrap;}
+  footer .foot-links a{color:#fff;font-weight:600;text-decoration:none;font-size:13.5px;}
+  footer hr{border:none;border-top:1px solid #33404c;margin:16px 0;}
+  footer a{color:#9fd0e8;}
+
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(11,37,64,.55);
+    display:none;align-items:center;justify-content:center;z-index:100;padding:20px;
+  }
+  .modal-overlay.show{display:flex;}
+  .modal{
+    background:#fff;border-radius:10px;max-width:420px;width:100%;
+    padding:32px 28px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.25);
+  }
+  .modal .icon{font-size:40px;color:var(--green-check);margin-bottom:10px;}
+  .modal h2{margin:0 0 10px;color:var(--navy);font-size:20px;}
+  .modal p{margin:0 0 20px;color:var(--muted);font-size:14px;line-height:1.5;}
+  .modal button{
+    background:var(--navy);color:#fff;border:none;padding:12px 28px;
+    border-radius:6px;font-weight:600;cursor:pointer;font-size:14.5px;
+  }
+
+  @media (max-width:520px){
+    .row2{flex-direction:column;gap:0;}
+    h1.hero{font-size:21px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark"></div>
+    <div class="logo-text">MILESTONE<sup>®</sup></div>
+  </div>
+</header>
+
+<main>
+  <h1 class="hero">Complete the fields below to apply for the Milestone Mastercard&reg;</h1>
+
+  <div class="card-wrap">
+    <div class="card-mock">
+      <div class="brand"><span class="dot"></span> MILESTONE</div>
+      <div class="chip-row">
+        <div class="chip"></div>
+        <div class="wifi">((•))</div>
+      </div>
+      <div class="mc-logo"><div class="c1"></div><div class="c2"></div></div>
+    </div>
+  </div>
+
+  <ul class="checklist">
+    <li><span class="check">&#10003;</span> Reports to all three credit bureaus</li>
+    <li><span class="check">&#10003;</span> Mastercard is accepted at 40 million locations online, in app and in store</li>
+  </ul>
+
+  <form id="appForm" novalidate>
+    <div class="field-wrap">
+      <input class="field" id="name" placeholder="Name" required>
+      <div class="error-msg" id="err-name">Please enter your full name.</div>
+    </div>
+
+    <div class="field-wrap">
+      <input class="field" id="address" placeholder="Address" required>
+      <div class="error-msg" id="err-address">Please enter your address.</div>
+    </div>
+
+    <div class="field-wrap">
+      <input class="field" id="email" type="email" placeholder="Email" required>
+      <div class="error-msg" id="err-email">Please enter a valid email address.</div>
+    </div>
+
+    <div class="field-wrap">
+      <input class="field" id="phone" placeholder="Phone" required>
+      <div class="error-msg" id="err-phone">Please enter a valid 10-digit phone number.</div>
+    </div>
+
+    <div class="row2">
+      <div class="field-wrap">
+        <input class="field" id="dob" placeholder="Date of Birth (MM/DD/YYYY)" required>
+        <div class="error-msg" id="err-dob">Please enter a valid date (MM/DD/YYYY).</div>
+      </div>
+      <div class="field-wrap">
+        <input class="field" id="ssn" placeholder="Social Security Number" required>
+        <div class="error-msg" id="err-ssn">Please enter a valid SSN (XXX-XX-XXXX).</div>
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="field-wrap">
+        <input class="field" id="income" placeholder="Total Monthly Income" required>
+        <div class="error-msg" id="err-income">Please enter a number.</div>
+      </div>
+      <div class="field-wrap">
+        <input class="field" id="expenses" placeholder="Total Monthly Expenses" required>
+        <div class="error-msg" id="err-expenses">Please enter a number.</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-title">Optional Services <span class="section-sub">(Selection Required)</span></div>
+
+    <div class="sub-heading">Overlimit Coverage</div>
+    <div class="links-row">
+      <a href="#" onclick="return false;">&#8599; Open in full view</a>
+      <a href="#" onclick="return false;">&#8595; Download</a>
+    </div>
+    <div class="doc-box">
+      <p>Overlimit refers to any time you exceed the credit limit on your credit card account. If you would like to allow overlimit charges on your account, you must opt-in for the Overlimit Coverage described here.</p>
+      <p>If you have not opted in and attempt to make a charge that would exceed your credit limit, your card will be declined.</p>
+      <p>Unless you tell us otherwise, we will decline any transaction that causes you to go over your credit limit. If you want us to authorize these transactions, you can enroll in Overlimit Coverage.</p>
+      <p>If you are enrolled in Overlimit Coverage and you go over your credit limit, we will charge you a fee up to $41. We may also charge you two additional Overlimit Fees if your New Balance remains over your Credit Limit as of the Payment Due Date in future Billing Cycles. You will only pay one fee per billing cycle, even if you go over your credit limit multiple times in the same cycle.</p>
+    </div>
+    <p class="confirm-text">By selecting "Accept", you confirm that you understand that if you go over your credit limit you will be charged a fee of up to $41. You also understand that you may cancel Overlimit Coverage at any time.</p>
+    <div class="btn-row" id="overlimit-row">
+      <button type="button" class="toggle-btn decline" data-group="overlimit" data-value="decline">Decline</button>
+      <button type="button" class="toggle-btn" data-group="overlimit" data-value="accept">Accept</button>
+    </div>
+    <div class="error-msg" id="err-overlimit">Please accept or decline Overlimit Coverage.</div>
+
+    <div class="sub-heading" style="margin-top:28px;">Credit Protection</div>
+    <div class="links-row">
+      <a href="#" onclick="return false;">&#8599; Open in full view</a>
+      <a href="#" onclick="return false;">&#8595; Download</a>
+    </div>
+    <div class="doc-box">
+      <p>Credit Protection is an optional program that offers benefits for unforeseen events such as involuntary termination from employment, disability, loss of life and more.</p>
+      <p><strong>THIS IS AN OPTIONAL PROGRAM. WHETHER OR NOT YOU CHOOSE TO ENROLL WILL NOT AFFECT YOUR APPLICATION FOR CREDIT OR YOUR CREDIT TERMS.</strong></p>
+      <p><strong>Important Cost and Cancellation Details about Credit Protection:</strong></p>
+      <ul>
+        <li>The monthly fee is $1.49 per $100, or part thereof, of the ending balance on your billing statement.</li>
+        <li>The monthly fee will be charged each month to your Milestone&reg; Mastercard Account.</li>
+        <li>You may cancel at any time. If you are not satisfied and you cancel within the first 30 days of enrollment, any monthly fees charged to your account will be credited.</li>
+      </ul>
+    </div>
+    <p class="confirm-text">By selecting "Accept", you confirm the following:</p>
+    <ul class="submit-list">
+      <li>You understand it is an <strong>optional</strong> product;</li>
+      <li>You have read the complete Addendum and understand the benefits, terms, and limitations; and</li>
+      <li>You understand a fee will be charged each month to your Account.</li>
+    </ul>
+    <div class="btn-row" id="creditprotection-row">
+      <button type="button" class="toggle-btn decline" data-group="creditprotection" data-value="decline">Decline</button>
+      <button type="button" class="toggle-btn" data-group="creditprotection" data-value="accept">Accept</button>
+    </div>
+    <div class="error-msg" id="err-creditprotection">Please accept or decline Credit Protection.</div>
+
+    <hr class="divider">
+
+    <div class="section-title" style="margin-top:0;">Terms &amp; Conditions</div>
+    <div class="links-row">
+      <a href="#" onclick="return false;">&#8599; Open in full view</a>
+      <a href="#" onclick="return false;">&#8595; Download</a>
+    </div>
+    <div class="tc-table">
+      <div class="tc-title">Milestone&reg; Mastercard&reg;<br>The Bank of Missouri</div>
+      <div class="tc-black">Interest Rates and Interest Charges</div>
+      <div class="tc-row">
+        <div class="tc-label">Annual Percentage Rate (APR) for Purchases</div>
+        <div class="tc-value tc-apr">35.9%</div>
+      </div>
+      <div class="tc-row">
+        <div class="tc-label">APR for Cash Advances</div>
+        <div class="tc-value">35.9%</div>
+      </div>
+      <div class="tc-row">
+        <div class="tc-label">Paying Interest</div>
+        <div class="tc-value">Your due date is at least 25 days after the close of each billing cycle. We will not charge you any interest on purchases if you pay your entire balance by the due date each month. We will begin charging interest on cash advances on the transaction date.</div>
+      </div>
+      <div class="tc-row">
+        <div class="tc-label">Minimum Interest Charge</div>
+        <div class="tc-value">If you are charged interest, the charge will be no less than $1.00.</div>
+      </div>
+      <div class="tc-black">Fees</div>
+      <div class="tc-row">
+        <div class="tc-label">Annual Fee</div>
+        <div class="tc-value">$250 the first year; $99 thereafter</div>
+      </div>
+    </div>
+
+    <div class="section-title">Submit Application</div>
+    <p class="submit-note">By clicking "SUBMIT APPLICATION" below, you confirm you are applying for a Milestone Mastercard Account issued by The Bank of Missouri ("we" "us") and you acknowledge, agree to, and/or represent the following:</p>
+    <ul class="submit-list">
+      <li>The information you have provided as part of this application is true and correct;</li>
+      <li>We may gather information about you, including from credit reporting agencies and other sources, to verify your identity and determine your eligibility for credit, renewal of credit, future extensions of credit, and consider you for additional products and services.</li>
+      <li>You have read and agree to the credit terms, Cardholder Agreement ("Agreement"), and other disclosures with this application, and you understand that if your application is approved, the Agreement will govern your Account. <strong>The Agreement includes an arbitration provision that limits your rights unless you reject the provision by following the provision's instructions or if you are a Covered Borrower entitled to protection under the Federal Military Lending Act.</strong></li>
+      <li>If approved, a hard inquiry will be reflected on your credit report on the day your application is approved, which may impact your credit score. If declined, no hard inquiry will be reflected.</li>
+    </ul>
+    <p class="submit-note">By clicking "ACCEPT" below, you agree (i) that you have read and agree to the above Terms and Conditions, which contain important rate, fee, and other information, (ii) agree to the <a href="#" onclick="return false;">Consent to Electronic Communications</a> and confirm you meet the computer and software requirements, and (iii) you consent to receive the Agreement and other important disclosures electronically.</p>
+
+    <div class="btn-row" id="terms-row">
+      <button type="button" class="toggle-btn decline" data-group="terms" data-value="decline">Decline</button>
+      <button type="button" class="toggle-btn" data-group="terms" data-value="accept">Accept</button>
+    </div>
+    <div class="error-msg" id="err-terms">Please accept or decline the Terms and Conditions.</div>
+
+    <button type="submit" class="submit-btn" id="submitBtn" disabled>Submit Application</button>
+  </form>
+</main>
+
+<footer>
+  <div class="foot-links">
+    <a href="#" onclick="return false;">Privacy Policy</a>
+    <a href="#" onclick="return false;">Terms of Use</a>
+    <a href="#" onclick="return false;">AdChoices</a>
+  </div>
+  <hr>
+  <div>&copy;2026 Concora Credit Inc. All Rights Reserved.</div>
+  <div>*If your application is not approved, a hard inquiry will not appear on your credit report, which means your credit score will not be impacted.</div>
+  <div>Milestone is a registered trademark of Concora Credit Inc. The Milestone Mastercard is issued by The Bank of Missouri and serviced by Concora Credit Inc. (NMLS #1549514). Click <a href="#" onclick="return false;">here</a> to access the NMLS Consumer Access page.</div>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="icon">&#10003;</div>
+    <h2>Application Submitted</h2>
+    <p>This is a demo form &mdash; no data was sent or stored anywhere. In a live version, this is where the applicant would see a real confirmation.</p>
+    <button onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script>
+const groups = ['overlimit','creditprotection','terms'];
+const selections = {overlimit:null, creditprotection:null, terms:null};
+
+document.querySelectorAll('.toggle-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const group = btn.dataset.group;
+    const value = btn.dataset.value;
+    selections[group] = value;
+    document.querySelectorAll(`.toggle-btn[data-group="${group}"]`).forEach(b=>{
+      b.classList.remove('selected');
+    });
+    btn.classList.add('selected');
+    document.getElementById(`err-${group}`).classList.remove('show');
+    updateSubmitState();
+  });
+});
+
+const fieldValidators = {
+  name: v => v.trim().length > 1,
+  address: v => v.trim().length > 3,
+  email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+  phone: v => /^[\d\s()+-]{10,}$/.test(v.trim()) && v.replace(/\D/g,'').length >= 10,
+  dob: v => /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/(19|20)\d{2}$/.test(v.trim()),
+  ssn: v => /^\d{3}-?\d{2}-?\d{4}$/.test(v.trim()),
+  income: v => v.trim() !== '' && !isNaN(v.replace(/[^0-9.]/g,'')) ,
+  expenses: v => v.trim() !== '' && !isNaN(v.replace(/[^0-9.]/g,''))
+};
+
+function fieldsValid(showErrors){
+  let allValid = true;
+  Object.keys(fieldValidators).forEach(id=>{
+    const el = document.getElementById(id);
+    const valid = fieldValidators[id](el.value);
+    if(!valid) allValid = false;
+    if(showErrors){
+      el.classList.toggle('invalid', !valid);
+      document.getElementById(`err-${id}`).classList.toggle('show', !valid);
+    }
+  });
+  return allValid;
+}
+
+Object.keys(fieldValidators).forEach(id=>{
+  document.getElementById(id).addEventListener('input', ()=>{
+    const el = document.getElementById(id);
+    const valid = fieldValidators[id](el.value);
+    el.classList.toggle('invalid', !valid && el.value.length>0);
+    if(valid) document.getElementById(`err-${id}`).classList.remove('show');
+    updateSubmitState();
+  });
+});
+
+function updateSubmitState(){
+  const allSelected = groups.every(g => selections[g] !== null);
+  const valid = fieldsValid(false);
+  const btn = document.getElementById('submitBtn');
+  if(allSelected && valid){
+    btn.disabled = false;
+    btn.classList.add('enabled');
+  } else {
+    btn.disabled = true;
+    btn.classList.remove('enabled');
+  }
+}
+
+document.getElementById('appForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const valid = fieldsValid(true);
+  let groupsOk = true;
+  groups.forEach(g=>{
+    if(selections[g] === null){
+      groupsOk = false;
+      document.getElementById(`err-${g}`).classList.add('show');
+    }
+  });
+  if(valid && groupsOk){
+    document.getElementById('modalOverlay').classList.add('show');
+  } else {
+    const firstInvalid = document.querySelector('.field.invalid, .error-msg.show');
+    if(firstInvalid) firstInvalid.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+});
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+</script>
+
+</body>
+</html>
